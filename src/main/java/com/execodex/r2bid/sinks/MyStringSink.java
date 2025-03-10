@@ -19,7 +19,7 @@ public class MyStringSink {
     }
 
     public Flux<String> getFlux() {
-        return sink.asFlux();
+        return sink.asFlux().share().onBackpressureBuffer(3);
     }
 
 }
