@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: r2bid
+# PostgreSQL R2DBC Configuration
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/r2bid
+    username: myuser
+    password: secret
+  sql:
+    init:
+      platform: postgres
+#  h2:
+#    console:
+#      enabled: true
+
+# Kafka Configuration
+  kafka:
+    bootstrap-servers: PLAINTEXT://localhost:19092  # Kafka broker address
+    consumer:
+      group-id: r2bid-group  # Kafka consumer group ID
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
