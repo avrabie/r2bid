@@ -9,6 +9,9 @@ spring:
   sql:
     init:
       platform: postgres
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
 #  h2:
 #    console:
 #      enabled: true
