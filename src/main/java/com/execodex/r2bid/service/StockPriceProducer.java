@@ -1,6 +1,8 @@
 package com.execodex.r2bid.service;
 
 import com.execodex.r2bid.model.StockPrice;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class StockPriceProducer {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @Value("${r2bid.kafka.stock-topic}")
     private String stockTopic = "stock-topic";
@@ -20,7 +23,15 @@ public class StockPriceProducer {
     }
 
     public void sendStockPrice(String symbol, StockPrice stockPrice) {
-        kafkaTemplate.send(stockTopic, symbol, stockPrice.getClose().toString());
+        // Convert StockPrice object to JSON string
+            String stockPriceJson;
+        try {
+            stockPriceJson = objectMapper.writeValueAsString(stockPrice);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        kafkaTemplate.send(stockTopic, symbol, stockPriceJson);
         log.info("Sent stock update for {}: {}", symbol, stockPrice.getClose());
     }
 }
