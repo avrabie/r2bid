@@ -1,5 +1,6 @@
 package com.execodex.r2bid.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -9,7 +10,8 @@ public class StockPriceFetcher {
 
     private final WebClient webClient;
 
-    private final String API_KEY = "YOUR_API_KEY"; // Replace with actual key
+    @Value("${r2bid.alphavantage.api-key}")
+    private final String API_KEY = "YOUR_API_KEY";
 
     public StockPriceFetcher(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl("https://www.alphavantage.co").build();
