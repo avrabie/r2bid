@@ -20,3 +20,5 @@ Build Out the UI:
 
 Use React + Tailwind for the real-time stock prices and bidding interface.
 Show stock prices with bid updates, using SSE to keep the UI fresh.
+
+

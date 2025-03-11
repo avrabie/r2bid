@@ -29,3 +29,5 @@ spring:
 r2bid:
   alphavantage:
     api-key: secret
+    interval: 1min
+    base-url: https://www.alphavantage.co

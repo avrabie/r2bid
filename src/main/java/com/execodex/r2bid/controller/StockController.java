@@ -2,7 +2,7 @@ package com.execodex.r2bid.controller;
 
 import com.execodex.r2bid.kafka.StockPriceProducer;
 import com.execodex.r2bid.service.StockPriceFetcher;
-import com.execodex.r2bid.service.StockPriceResponse;
+import com.execodex.r2bid.model.StockPriceResponse;
 import com.execodex.r2bid.sinks.MyStringSink;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
