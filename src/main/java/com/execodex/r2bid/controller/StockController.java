@@ -57,4 +57,10 @@ public class StockController {
         Mono<StockPriceResponse> stockPriceResponseMono = stockPriceFetcher.fetchStockPrice(stock);
         return stockPriceResponseMono;
     }
+
+    @GetMapping("/fetchs/{stock}")
+    public Mono<String> fetchStockPriceString(@PathVariable String stock) {
+        Mono<String> stockPriceResponseMono = stockPriceFetcher.fetchStockPrice2(stock);
+        return stockPriceResponseMono;
+    }
 }

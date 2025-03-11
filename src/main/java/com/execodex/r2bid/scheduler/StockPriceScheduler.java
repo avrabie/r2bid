@@ -25,14 +25,15 @@ public class StockPriceScheduler {
     public void fetchStockData() {
         stockPriceFetcher.fetchStockPrice("TSLA")
                 .subscribe(response -> {
+                    log.info("Received stock price for: {}", response);
                     String latestTimestamp = response.getTimeSeries().keySet().iterator().next();
-                    StockPrice latestPrice = response.getTimeSeries().get(latestTimestamp);
+                    StockPrice stockPrice = response.getTimeSeries().get(latestTimestamp);
 
                     log.info("Stock: {}, Time: {}, Price: {}",
                             response.getMetaData().getSymbol(),
                             latestTimestamp,
-                            latestPrice.getClose());
-                    stockPriceProducer.sendStockPrice(response.getMetaData().getSymbol(), latestPrice);
+                            stockPrice.getClose());
+                    stockPriceProducer.sendStockPrice(response.getMetaData().getSymbol(), stockPrice);
                 });
     }
 }

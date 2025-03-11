@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/query",
+    "queryParameters": {
+      "function": {
+        "equalTo": "TIME_SERIES_INTRADAY"
+      },
+      "symbol": {
+        "equalTo": "TSLA"
+      },
+      "interval": {
+        "equalTo": "5min"
+      },
+      "apikey": {
+        "equalTo": "demo"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "alphavantage_response.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
