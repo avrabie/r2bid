@@ -1,6 +1,6 @@
 package com.execodex.r2bid.controller;
 
-import com.execodex.r2bid.kafka.StockPriceProducer;
+import com.execodex.r2bid.kafka.StockPriceProducerConfig;
 import com.execodex.r2bid.service.StockPriceFetcher;
 import com.execodex.r2bid.model.StockPriceResponse;
 import com.execodex.r2bid.sinks.MyStringSink;
@@ -16,12 +16,12 @@ import java.time.Duration;
 public class StockController {
 
 
-    private final StockPriceProducer stockPriceProducer;
+    private final StockPriceProducerConfig stockPriceProducerConfig;
     private final MyStringSink myStringSink;
     private final StockPriceFetcher stockPriceFetcher;
 
-    public StockController(StockPriceProducer stockPriceProducer, MyStringSink myStringSink, StockPriceFetcher stockPriceFetcher) {
-        this.stockPriceProducer = stockPriceProducer;
+    public StockController(StockPriceProducerConfig stockPriceProducerConfig, MyStringSink myStringSink, StockPriceFetcher stockPriceFetcher) {
+        this.stockPriceProducerConfig = stockPriceProducerConfig;
         this.myStringSink = myStringSink;
         this.stockPriceFetcher = stockPriceFetcher;
     }
@@ -30,7 +30,7 @@ public class StockController {
     public Flux<String> streamStockPrices() {
         return Flux.create(sink -> {
                     // Here, the producer can stream stock data to the frontend (SSE)
-                    stockPriceProducer.sendStockPrice("AAPL", "150.50");
+                    stockPriceProducerConfig.sendStockPrice("AAPL", "150.50");
                     sink.next("AAPL - 150.50");
                     // Implement continuous streaming logic to push new stock prices to the frontend
                 }).delayElements(Duration.ofSeconds(1))
@@ -42,7 +42,7 @@ public class StockController {
     public void updateStockPrice(@RequestBody String stockPrice) {
         // Here, the controller can receive stock price updates from the frontend
         // and publish them to the Kafka topic
-        stockPriceProducer.sendStockPrice("AAPL", stockPrice);
+        stockPriceProducerConfig.sendStockPrice("AAPL", stockPrice);
         myStringSink.next("APPL-"+stockPrice);
     }
 

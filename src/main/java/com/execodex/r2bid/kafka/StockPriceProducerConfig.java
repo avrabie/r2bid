@@ -15,7 +15,7 @@ import java.util.Map;
 
 @EnableKafka
 @Configuration
-public class StockPriceProducer {
+public class StockPriceProducerConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String kafkaServers;

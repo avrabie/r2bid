@@ -31,3 +31,5 @@ r2bid:
     api-key: secret
     interval: 1min
     base-url: https://www.alphavantage.co
+  kafka:
+    stock-topic: stock-prices
