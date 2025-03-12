@@ -39,10 +39,13 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
     annotationProcessor("org.projectlombok:lombok")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final") // add mapstruct latest version
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.kafka:spring-kafka-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // add mapstruct latest version
+    testImplementation("org.mapstruct:mapstruct:1.5.5.Final") // add mapstruct latest version
 
     testImplementation("org.testcontainers:testcontainers:1.19.3") // Use the latest version
     testImplementation("org.testcontainers:junit-jupiter:1.19.3") // For JUnit 5 support
