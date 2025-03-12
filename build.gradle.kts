@@ -43,6 +43,13 @@ dependencies {
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.kafka:spring-kafka-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    testImplementation("org.testcontainers:testcontainers:1.19.3") // Use the latest version
+    testImplementation("org.testcontainers:junit-jupiter:1.19.3") // For JUnit 5 support
+    testImplementation("org.testcontainers:kafka:1.19.3") // For Kafka support
+    testImplementation ("org.testcontainers:postgresql:1.19.3") // For PostgreSQL support
+    testImplementation("org.testcontainers:r2dbc:1.19.3") // For R2DBC support
+
 }
 
 tasks.withType<Test> {
