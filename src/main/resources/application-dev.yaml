@@ -1,0 +1,8 @@
+
+r2bid:
+  alphavantage:
+    api-key: demo
+    interval: 5min
+    base-url: http://localhost:8100
+  kafka:
+    stock-topic: stock-prices

@@ -10,7 +10,13 @@ services:
     ports:
       - '5432:5432'
 
-
+  # Wiremock Service for macOS m1
+  wiremock:
+    image: 'wiremock/wiremock:latest'
+    ports:
+      - '8100:8080'
+    volumes:
+      - './src/test/resources/wiremock:/home/wiremock'
     # Kafka Broker
   zookeeper:
     image: confluentinc/cp-zookeeper:latest

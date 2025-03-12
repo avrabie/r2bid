@@ -1,6 +1,7 @@
 package com.execodex.r2bid.service;
 
 import com.execodex.r2bid.model.StockPriceResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -12,17 +13,18 @@ public class StockPriceFetcher {
     private final WebClient webClient;
 
     @Value("${r2bid.alphavantage.api-key}")
-    private final String API_KEY = "YOUR_API_KEY";
+    private String API_KEY = "YOUR_API_KEY";
     @Value("${r2bid.alphavantage.interval}")
-    private final String interval = "1min";
-    @Value("${r2bid.alphavantage.base-url}")
-    private final String baseUrl = "https://www.alphavantage.co";
+    private String interval = "1min";
+    
 
-    public StockPriceFetcher(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("https://www.alphavantage.co").build();
+    public StockPriceFetcher(@Qualifier("alphaVantageWebClient") WebClient webClient) {
+        this.webClient = webClient;
     }
 
+
     public Mono<StockPriceResponse> fetchStockPrice(String symbol) {
+
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/query")
@@ -33,6 +35,20 @@ public class StockPriceFetcher {
                         .build())
                 .retrieve()
                 .bodyToMono(StockPriceResponse.class);
+    }
+
+
+    public Mono<String> fetchStockPrice2(String symbol) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/query")
+                        .queryParam("function", "TIME_SERIES_INTRADAY")
+                        .queryParam("symbol", symbol)
+                        .queryParam("interval", interval)
+                        .queryParam("apikey", API_KEY)
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class);
     }
 }
 
