@@ -27,9 +27,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.kafka:spring-kafka")
+    implementation("io.projectreactor.kafka:reactor-kafka:1.3.21") // add reactor-kafka
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.liquibase:liquibase-core")
     compileOnly("org.projectlombok:lombok")
+
     // add mapstruct latest version
     implementation("org.mapstruct:mapstruct:1.5.5.Final") // add mapstruct latest version
     annotationProcessor("org.projectlombok:lombok")

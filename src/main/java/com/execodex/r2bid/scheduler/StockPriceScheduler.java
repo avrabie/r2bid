@@ -34,7 +34,7 @@ public class StockPriceScheduler {
                             response.getMetaData().getSymbol(),
                             latestTimestamp,
                             stockPrice.getClose());
-                    stockPriceProducer.sendStockPrice(response.getMetaData().getSymbol(), stockPrice);
+                    stockPriceProducer.sendStockPrice(response.getMetaData().getSymbol(), response);
                 });
     }
 
