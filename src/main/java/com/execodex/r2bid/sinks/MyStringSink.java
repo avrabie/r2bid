@@ -14,8 +14,7 @@ public class MyStringSink {
     }
 
     public void next(String value) {
-
-        sink.tryEmitNext(value).orThrow();
+        sink.tryEmitNext(value);
     }
 
     public Flux<String> getFlux() {

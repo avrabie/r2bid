@@ -36,7 +36,7 @@ public class StockPriceListener {
     @KafkaListener(topics = "stock-prices", groupId = "r2bid-group")
     public void consumeStockPrice(String message) {
         //investigate why this is not working
-//        myStringSink.next("From Kakfa stock-prices :: "+message);
+        myStringSink.next("From Kakfa stock-prices :: "+message);
         log.info("KafkaListener Received stock price: {}", message);
 
         StockPriceResponse stockPriceResponse;
