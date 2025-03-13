@@ -1,6 +1,8 @@
 package com.execodex.r2bid.controller;
 
+import com.execodex.r2bid.entity.Stock;
 import com.execodex.r2bid.model.StockPriceResponse;
+import com.execodex.r2bid.repository.StockRepository;
 import com.execodex.r2bid.scheduler.StockPriceScheduler;
 import com.execodex.r2bid.service.StockPriceFetcher;
 import com.execodex.r2bid.sinks.MyStringSink;
@@ -15,10 +17,12 @@ public class StockController {
 
     private final MyStringSink myStringSink;
     private final StockPriceFetcher stockPriceFetcher;
+    private final StockRepository stockRepository;
 
-    public StockController(MyStringSink myStringSink, StockPriceFetcher stockPriceFetcher) {
+    public StockController(MyStringSink myStringSink, StockPriceFetcher stockPriceFetcher, StockRepository stockRepository) {
         this.myStringSink = myStringSink;
         this.stockPriceFetcher = stockPriceFetcher;
+        this.stockRepository = stockRepository;
     }
 
 
@@ -44,6 +48,35 @@ public class StockController {
         StockPriceScheduler.setStockTicker(stock);
         myStringSink.next("Stock ticker updated to: " + stock);
         return Mono.just("Stock ticker updated to: " + stock);
+    }
+
+    // ✅ Get all stocks (reactive stream)
+    @GetMapping
+    public Flux<Stock> getAllStocks() {
+        return stockRepository.findAll();
+    }
+
+    // ✅ Get stock by symbol
+    @GetMapping("/{symbol}")
+    public Flux<Stock> getStocksBySymbol(@PathVariable String symbol) {
+        return stockRepository.findBySymbol(symbol);
+    }
+
+    // ✅ Get latest stock price for a symbol
+    @GetMapping("/{symbol}/latest")
+    public Mono<Stock> getLatestStock(@PathVariable String symbol) {
+        return stockRepository.findTopBySymbolOrderByTimestampDesc(symbol);
+    }
+
+    // ✅ Fetch paginated historical stock data
+    @GetMapping("/{symbol}/history")
+    public Flux<Stock> getStockHistory(
+            @PathVariable String symbol,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "0") int page
+    ) {
+        int offset = page * size;
+        return stockRepository.findBySymbolPaged(symbol, size, offset);
     }
 
 
