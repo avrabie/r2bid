@@ -29,17 +29,19 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.liquibase:liquibase-core")
+    compileOnly("org.projectlombok:lombok")
     // add mapstruct latest version
-    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    implementation("org.mapstruct:mapstruct:1.5.5.Final") // add mapstruct latest version
+    annotationProcessor("org.projectlombok:lombok")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
 
 
-    compileOnly("org.projectlombok:lombok")
+
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
-    annotationProcessor("org.projectlombok:lombok")
-    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final") // add mapstruct latest version
+
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.kafka:spring-kafka-test")

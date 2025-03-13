@@ -20,13 +20,14 @@ public class StockPriceListener {
 
     private final MyStringSink myStringSink;
     private final StockRepository stockRepository;
-    private final StockPriceMapper stockPriceMapper = StockPriceMapper.INSTANCE;
+    private final StockPriceMapper stockPriceMapper;
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public StockPriceListener(MyStringSink myStringSink, StockRepository stockRepository) {
+    public StockPriceListener(MyStringSink myStringSink, StockRepository stockRepository, StockPriceMapper stockPriceMapper) {
         this.myStringSink = myStringSink;
         this.stockRepository = stockRepository;
 
+        this.stockPriceMapper = stockPriceMapper;
     }
 
 

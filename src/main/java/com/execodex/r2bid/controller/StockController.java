@@ -1,16 +1,13 @@
 package com.execodex.r2bid.controller;
 
 import com.execodex.r2bid.kafka.StockPriceProducerConfig;
+import com.execodex.r2bid.model.StockPriceResponse;
 import com.execodex.r2bid.scheduler.StockPriceScheduler;
 import com.execodex.r2bid.service.StockPriceFetcher;
-import com.execodex.r2bid.model.StockPriceResponse;
 import com.execodex.r2bid.sinks.MyStringSink;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
-
-import java.time.Duration;
 
 @RestController
 @RequestMapping("/api/stock")
@@ -28,11 +25,9 @@ public class StockController {
     }
 
 
-
     @PostMapping("/bid/{ticker}")
     public void updateStockPrice(@RequestBody String stockPrice, @PathVariable String ticker) {
-        stockPriceProducerConfig.sendStockPrice(ticker, stockPrice);
-        myStringSink.next(ticker+"-"+stockPrice);
+        myStringSink.next(ticker + "-" + stockPrice);
     }
 
     @GetMapping("/myStream")
@@ -53,7 +48,6 @@ public class StockController {
         myStringSink.next("Stock ticker updated to: " + stock);
         return Mono.just("Stock ticker updated to: " + stock);
     }
-
 
 
 //    @GetMapping("/stream")

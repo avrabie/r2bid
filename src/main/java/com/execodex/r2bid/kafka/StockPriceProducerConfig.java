@@ -31,7 +31,5 @@ public class StockPriceProducerConfig {
         return new KafkaTemplate<>(producerFactory);
     }
 
-    public void sendStockPrice(String stockSymbol, String price) {
-        kafkaTemplate().send("stock-prices", stockSymbol, price);
-    }
+
 }
