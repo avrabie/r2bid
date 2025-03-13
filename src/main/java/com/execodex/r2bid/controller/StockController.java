@@ -1,6 +1,5 @@
 package com.execodex.r2bid.controller;
 
-import com.execodex.r2bid.kafka.StockPriceProducerConfig;
 import com.execodex.r2bid.model.StockPriceResponse;
 import com.execodex.r2bid.scheduler.StockPriceScheduler;
 import com.execodex.r2bid.service.StockPriceFetcher;
@@ -14,12 +13,10 @@ import reactor.core.publisher.Mono;
 public class StockController {
 
 
-    private final StockPriceProducerConfig stockPriceProducerConfig;
     private final MyStringSink myStringSink;
     private final StockPriceFetcher stockPriceFetcher;
 
-    public StockController(StockPriceProducerConfig stockPriceProducerConfig, MyStringSink myStringSink, StockPriceFetcher stockPriceFetcher) {
-        this.stockPriceProducerConfig = stockPriceProducerConfig;
+    public StockController(MyStringSink myStringSink, StockPriceFetcher stockPriceFetcher) {
         this.myStringSink = myStringSink;
         this.stockPriceFetcher = stockPriceFetcher;
     }

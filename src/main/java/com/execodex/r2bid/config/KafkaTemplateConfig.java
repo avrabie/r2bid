@@ -1,4 +1,4 @@
-package com.execodex.r2bid.kafka;
+package com.execodex.r2bid.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @EnableKafka
 @Configuration
-public class StockPriceProducerConfig {
+public class KafkaTemplateConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String kafkaServers;

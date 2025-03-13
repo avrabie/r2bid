@@ -7,7 +7,7 @@ import reactor.core.publisher.Sinks;
 @Component
 public class MyStringSink {
     private final Sinks.Many<String> sink;
-    private Flux<String> flux;
+
 
     public MyStringSink() {
         this.sink = Sinks.many().multicast().onBackpressureBuffer(3);
