@@ -16,14 +16,14 @@ import java.time.LocalDateTime;
 
 @Service
 @Slf4j
-public class StockPriceConsumer {
+public class StockPriceListener {
 
     private final MyStringSink myStringSink;
     private final StockRepository stockRepository;
     private final StockPriceMapper stockPriceMapper = StockPriceMapper.INSTANCE;
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public StockPriceConsumer(MyStringSink myStringSink, StockRepository stockRepository) {
+    public StockPriceListener(MyStringSink myStringSink, StockRepository stockRepository) {
         this.myStringSink = myStringSink;
         this.stockRepository = stockRepository;
 
@@ -32,9 +32,9 @@ public class StockPriceConsumer {
 
     @KafkaListener(topics = "stock-prices", groupId = "r2bid-group")
     public void consumeStockPrice(String message) {
-        myStringSink.next(message);
+        myStringSink.next("From Kakfa stock-prices :: "+message);
         log.info("KafkaListener Received stock price: {}", message);
-        // use objectMapper to convert message to StockPrice object
+
         StockPrice stockPrice;
         try {
             stockPrice = objectMapper.readValue(message, StockPrice.class);

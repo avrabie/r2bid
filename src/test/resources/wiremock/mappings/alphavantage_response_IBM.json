@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/query",
+    "queryParameters": {
+      "function": {
+        "equalTo": "TIME_SERIES_INTRADAY"
+      },
+      "symbol": {
+        "equalTo": "IBM"
+      },
+      "interval": {
+        "equalTo": "1min"
+      },
+      "apikey": {
+        "equalTo": "demo"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "alphavantage_response_IBM.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

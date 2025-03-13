@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @EnableScheduling
 public class StockPriceScheduler {
+    private static String STOCK_TICKER = "TSLA";
 
     private final StockPriceFetcher stockPriceFetcher;
     private final StockPriceProducer stockPriceProducer;
@@ -21,9 +22,9 @@ public class StockPriceScheduler {
         this.stockPriceProducer = stockPriceProducer;
     }
 
-    @Scheduled(fixedRate = 60000) // Fetch every 10 min
+    @Scheduled(fixedRate = 60000) // Fetch every 1 min
     public void fetchStockData() {
-        stockPriceFetcher.fetchStockPrice("TSLA")
+        stockPriceFetcher.fetchStockPrice(STOCK_TICKER)
                 .subscribe(response -> {
                     log.info("Received stock price for: {}", response);
                     String latestTimestamp = response.getTimeSeries().keySet().iterator().next();
@@ -35,6 +36,10 @@ public class StockPriceScheduler {
                             stockPrice.getClose());
                     stockPriceProducer.sendStockPrice(response.getMetaData().getSymbol(), stockPrice);
                 });
+    }
+
+    public static void setStockTicker(String stockTicker) {
+        STOCK_TICKER = stockTicker;
     }
 }
 

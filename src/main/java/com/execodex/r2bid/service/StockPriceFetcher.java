@@ -16,7 +16,7 @@ public class StockPriceFetcher {
     private String API_KEY = "YOUR_API_KEY";
     @Value("${r2bid.alphavantage.interval}")
     private String interval = "1min";
-    
+
 
     public StockPriceFetcher(@Qualifier("alphaVantageWebClient") WebClient webClient) {
         this.webClient = webClient;
@@ -38,17 +38,6 @@ public class StockPriceFetcher {
     }
 
 
-    public Mono<String> fetchStockPrice2(String symbol) {
-        return webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/query")
-                        .queryParam("function", "TIME_SERIES_INTRADAY")
-                        .queryParam("symbol", symbol)
-                        .queryParam("interval", interval)
-                        .queryParam("apikey", API_KEY)
-                        .build())
-                .retrieve()
-                .bodyToMono(String.class);
-    }
+
 }
 
